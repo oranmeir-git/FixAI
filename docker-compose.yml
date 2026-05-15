@@ -1,0 +1,62 @@
+services:
+  flask_app:
+    build: .
+    image: flask_app_image
+    restart: always
+    expose:
+     - "5000"
+
+    environment:
+      DB_HOST: mysql
+      DB_NAME: flask
+      DB_USER: flask
+      DB_PASSWORD: password
+    depends_on:
+      mysql:
+        condition: service_healthy
+    healthcheck:
+   
+      test: ["CMD-SHELL", "python -c 'import socket; s=socket.create_connection((\"127.0.0.1\", 5000), timeout=2); s.close()'"]
+      interval: 10s
+      timeout: 5s
+      retries: 7
+      start_period: 60s # נותן זמן ל-MySQL + init_db_with_retry להתרומם ב-CI
+
+  mysql:
+    image: mysql:5.7
+    volumes:
+      - mysql-data:/var/lib/mysql
+      - ./db/mysqld.cnf:/etc/mysql/mysql.conf.d/mysqld.cnf
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: flask
+      MYSQL_USER: flask
+      MYSQL_PASSWORD: password
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-ppassword"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+
+  testserver:
+    build:
+      context: .
+      dockerfile: test.Dockerfile
+    depends_on:
+      flask_app:
+        condition: service_healthy
+
+  nginx:
+    image: nginx:latest
+    ports:
+      - "8080:80"
+    volumes:
+      - ./nginx.conf:/etc/nginx/conf.d/default.conf:ro
+      - ./static:/usr/share/nginx/html/static:ro
+    depends_on:
+      - flask_app
+      
+volumes:
+  mysql-data:
+      

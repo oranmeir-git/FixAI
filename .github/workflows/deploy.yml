@@ -1,0 +1,36 @@
+name: Deploy to EC2
+
+on:
+  workflow_run:
+    workflows: ["CI/CD Pipeline"]
+    types:
+      - completed
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.workflow_run.head_sha }}
+
+      - name: SSH and Deploy
+        uses: appleboy/ssh-action@v1.2.5
+        with:
+          host: ${{ secrets.SERVER_IP }}
+          username: ${{ secrets.SERVER_USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          timeout: 60s
+          command_timeout: 30m
+          script: |
+            cd ~/FixAI
+            git fetch origin main
+            git reset --hard origin/main
+            git clean -fd
+            source venv/bin/activate
+            python -m pip install --upgrade pip
+            python -m pip install -r requirements.txt
+            # הפעלה מחדש של האפליקציה (ודא שהתקנת pm2 בשרת)
+            pm2 restart flask-app || pm2 start "./venv/bin/python -m flask --app app run --host=0.0.0.0 --port=5000" --name flask-app
