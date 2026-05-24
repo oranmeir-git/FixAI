@@ -1,7 +1,6 @@
 services:
   flask_app:
-    build: .
-    image: flask_app_image
+    image: oranmeir/my-app:latest
     restart: always
     expose:
      - "5000"

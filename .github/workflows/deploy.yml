@@ -32,5 +32,6 @@ jobs:
             echo "MYSQL_ROOT_PASSWORD=${{ secrets.DB_PASSWORD }}" > .env
             echo "MYSQL_USER=${{ secrets.DB_USER }}" >> .env
             echo "MYSQL_PASSWORD=${{ secrets.DB_PASSWORD }}" >> .env
+            echo "GEMINI_KEY=${{ secrets.GEMINI_KEY }}" >> .env
             docker compose up -d --build
             docker system prune -f
