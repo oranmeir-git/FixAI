@@ -9,8 +9,8 @@ services:
     environment:
       DB_HOST: mysql
       DB_NAME: flask
-      DB_USER: flask
-      DB_PASSWORD: password
+      DB_USER: ${MYSQL_USER}
+      DB_PASSWORD: ${MYSQL_PASSWORD}
     depends_on:
       mysql:
         condition: service_healthy
@@ -29,12 +29,12 @@ services:
       - ./db/mysqld.cnf:/etc/mysql/mysql.conf.d/mysqld.cnf
     restart: always
     environment:
-      MYSQL_ROOT_PASSWORD: password
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
       MYSQL_DATABASE: flask
-      MYSQL_USER: flask
-      MYSQL_PASSWORD: password
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
     healthcheck:
-      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-ppassword"]
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-p${MYSQL_ROOT_PASSWORD}"]
       interval: 10s
       timeout: 5s
       retries: 10
@@ -56,6 +56,23 @@ services:
       - ./static:/usr/share/nginx/html/static:ro
     depends_on:
       - flask_app
+  
+  prometheus:
+    image: prom/prometheus:latest
+    ports:
+      -  "9090:9090"
+    volumes:
+      - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+    
+    
+  grafana:
+    image: grafana/grafana:latest
+    ports:
+      - "3000:3000"
+    depends_on:
+      - prometheus
+
+
       
 volumes:
   mysql-data:

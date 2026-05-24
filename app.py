@@ -4,11 +4,13 @@ from dotenv import load_dotenv
 import os
 import time
 from typing import Optional
-from PIL import Image # וודא שיש לך import לזה בתחילת הקובץ
+from PIL import Image 
+from  prometheus_flask_exporter import PrometheusMetrics
 
 load_dotenv() 
 API_KEY = os.getenv("GEMINI_KEY")
 app = Flask(__name__)
+metrics = PrometheusMetrics(app)
 
 try:
     from google import genai  # type: ignore
@@ -119,4 +121,4 @@ if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5000, debug=debug)
 
 
-# Test Automation V2
+

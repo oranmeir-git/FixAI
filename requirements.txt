@@ -19,3 +19,4 @@ pytz>=2023.3
 
 Pillow
 requests
+prometheus-flask-exporter

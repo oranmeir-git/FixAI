@@ -11,7 +11,7 @@ data = {
 }
 
 def test_add_and_check_db():
-    # אנחנו נותנים לשרת 10 ניסיונות (בערך 30 שניות סה"כ) לעלות
+    #  נותנים לשרת 10 ניסיונות (בערך 30 שניות סה"כ) לעלות
     for attempt in range(10):
         try:
             print(f"Attempt {attempt + 1}: Connecting to {URL}...")

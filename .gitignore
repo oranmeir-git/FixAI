@@ -13,3 +13,7 @@ mysql-data/
 vol/
 __pycache__/
 __pycache__/
+
+
+terraform/.terraform/
+terraform/*.tfstate*

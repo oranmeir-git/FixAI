@@ -23,7 +23,7 @@ jobs:
 
       - name: Run integration test
         run: docker compose run --rm testserver
-        # run: exit 1
+        
 
       - name: Shutdown containers
         if: always()

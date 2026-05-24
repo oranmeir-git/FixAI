@@ -29,8 +29,5 @@ jobs:
             git fetch origin main
             git reset --hard origin/main
             git clean -fd
-            source venv/bin/activate
-            python -m pip install --upgrade pip
-            python -m pip install -r requirements.txt
-            # הפעלה מחדש של האפליקציה (ודא שהתקנת pm2 בשרת)
-            pm2 restart flask-app || pm2 start "./venv/bin/python -m flask --app app run --host=0.0.0.0 --port=5000" --name flask-app
+            docker compose up -d --build
+            docker system prune -f
