@@ -29,5 +29,8 @@ jobs:
             git fetch origin main
             git reset --hard origin/main
             git clean -fd
+            echo "MYSQL_ROOT_PASSWORD=${{ secrets.DB_PASSWORD }}" > .env
+            echo "MYSQL_USER=${{ secrets.DB_USER }}" >> .env
+            echo "MYSQL_PASSWORD=${{ secrets.DB_PASSWORD }}" >> .env
             docker compose up -d --build
             docker system prune -f
