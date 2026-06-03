@@ -1,6 +1,6 @@
 services:
   flask_app:
-    image: oranmeir/my-app:latest
+    build: .
     restart: always
     expose:
      - "5000"
@@ -69,6 +69,9 @@ services:
     image: grafana/grafana:latest
     ports:
       - "3000:3000"
+    environment:
+      - GF_AUTH_ANONYMOUS_ENABLED=true
+      - GF_AUTH_ANONYMOUS_ORG_ROLE=Admin
     volumes:
       - ./grafana/provisioning:/etc/grafana/provisioning
     depends_on:
