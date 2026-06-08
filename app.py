@@ -67,6 +67,8 @@ def add():
         return redirect(url_for("index"))
 
     advice_text = "המערכת עמוסה, נסה שוב בעוד דקה."
+    if not API_KEY:
+        advice_text = f"הערכת מחיר סימולטיבית (פועל במצב בדיקה ללא מפתח API): תיקון ל-'{title if title else 'הפריט בתמונה'}' מוערך בכ-350 עד 750 שקלים."
     
     if genai is not None and API_KEY:
         client = genai.Client(api_key=API_KEY)

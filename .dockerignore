@@ -8,9 +8,10 @@ venv/
 .venv/
 
 mysql-data/
-vol/
+vol/ 
 
 .git/
 .idea/
 
 .env
+terraform/
