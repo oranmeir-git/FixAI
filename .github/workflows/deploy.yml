@@ -34,12 +34,13 @@ jobs:
             echo "MYSQL_PASSWORD=${{ secrets.DB_PASSWORD }}" >> .env
             echo "GEMINI_KEY=${{ secrets.GEMINI_KEY }}" >> .env
             docker compose down
-            docker system prune -f
+            docker system prune -af
+            docker builder prune -af
             docker compose pull
             docker compose up -d --build
             echo "=== Waiting 30s for containers to start ==="
             sleep 30
             echo "=== Container Status ==="
             docker compose ps
-            echo "=== Container Logs ==="
-            docker compose logs --tail=30
+            echo "=== Container Logs (errors only) ==="
+            docker compose logs --tail=15
