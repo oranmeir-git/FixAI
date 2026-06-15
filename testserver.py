@@ -11,7 +11,6 @@ data = {
 }
 
 def test_add_and_check_db():
-    #  נותנים לשרת 10 ניסיונות (בערך 30 שניות סה"כ) לעלות
     for attempt in range(10):
         try:
             print(f"Attempt {attempt + 1}: Connecting to {URL}...")
@@ -24,7 +23,6 @@ def test_add_and_check_db():
                 return
 
         except Exception as e:
-            # אם יש שגיאת DNS או רשת, מחכים 3 שניות ומנסים שוב
             print(f"⚠️ Service not ready yet... Retrying in 3 seconds. ({e})")
             time.sleep(3)
 

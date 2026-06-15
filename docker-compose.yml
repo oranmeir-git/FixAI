@@ -21,8 +21,7 @@ services:
       interval: 10s
       timeout: 5s
       retries: 7
-      start_period: 60s # נותן זמן ל-MySQL + init_db_with_retry להתרומם ב-CI
-
+      start_period: 60s 
   mysql:
     image: mysql:5.7
     volumes:

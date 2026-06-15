@@ -51,7 +51,7 @@
 </div>
 
 <script>
-// פונקציה להצגת תצוגה מקדימה כשבוחרים קובץ
+
 function handleFileSelect(input) {
     if (input.files && input.files[0]) {
         const reader = new FileReader();
@@ -63,13 +63,13 @@ function handleFileSelect(input) {
     }
 }
 
-// פונקציה לניקוי התמונה
+
 function clearImage() {
     document.getElementById('file-upload').value = "";
     document.getElementById('preview-container').style.display = 'none';
 }
 
-// תמיכה בהדבקה (Paste)
+
 document.getElementById('task-input').addEventListener('paste', function(e) {
     const items = (e.clipboardData || e.originalEvent.clipboardData).items;
     for (let item of items) {

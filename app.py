@@ -45,7 +45,7 @@ def init_db_with_retry(max_attempts: int = 30, sleep_seconds: float = 2.0) -> No
             with app.app_context():
                 db.create_all()
             return
-        except Exception as exc:  # MySQL can be up but not ready for connections yet
+        except Exception as exc:  
             last_exc = exc
             time.sleep(sleep_seconds)
     if last_exc:
@@ -73,7 +73,7 @@ def add():
     if genai is not None and API_KEY:
         client = genai.Client(api_key=API_KEY)
         
-        # שימוש במודל שבוודאות עובד חינמי עם המפתח שלך
+       
         model_name = "gemini-flash-lite-latest" 
         
         prompt = f"תן לי הערכת מחיר קצרה מאוד (עד 3 משפטים) לפי השוק הישראלי לתיקון: {title if title else 'המתואר בתמונה'}."
