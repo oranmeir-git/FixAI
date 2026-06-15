@@ -33,7 +33,7 @@ jobs:
             echo "MYSQL_USER=${{ secrets.DB_USER }}" >> .env
             echo "MYSQL_PASSWORD=${{ secrets.DB_PASSWORD }}" >> .env
             echo "GEMINI_KEY=${{ secrets.GEMINI_KEY }}" >> .env
+            docker compose down
             docker compose pull
             docker compose up -d --build
-            docker compose restart grafana
             docker system prune -f
