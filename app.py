@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for, jsonify
+from flask import Flask, render_template, request, redirect, url_for
 from flask_sqlalchemy import SQLAlchemy
 from dotenv import load_dotenv
 import os
@@ -68,7 +68,7 @@ def add():
 
     advice_text = "המערכת עמוסה, נסה שוב בעוד דקה."
     if not API_KEY:
-        advice_text = f"הערכת מחיר סימולטיבית (פועל במצב בדיקה ללא מפתח API): תיקון ל-'{title if title else 'הפריט בתמונה'}' מוערך בכ-350 עד 750 שקלים."
+        advice_text = "שגיאה: מפתח ה-API של ג'מיני אינו מוגדר. לא ניתן לקבל הערכת מחיר."
     
     if genai is not None and API_KEY:
         client = genai.Client(api_key=API_KEY)

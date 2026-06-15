@@ -1,7 +1,7 @@
 import requests
 import time
-import sys
 import pytest
+
 
 BASE_URL = "http://flask_app:5000"
 URL = f"{BASE_URL}/add"
@@ -19,10 +19,8 @@ def test_add_and_check_db():
 
             if response.status_code == 200:
                 print("✅ TEST PASSED:")
-                assert response.status_code == 200, "The server did responded not correctly "
                 is_DB_updated = requests.get(BASE_URL)
                 assert "Is FixAI working?" in is_DB_updated.text, "The DB is not updated"
-
                 return
 
         except Exception as e:
