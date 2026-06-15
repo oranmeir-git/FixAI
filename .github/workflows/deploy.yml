@@ -34,5 +34,6 @@ jobs:
             echo "MYSQL_PASSWORD=${{ secrets.DB_PASSWORD }}" >> .env
             echo "GEMINI_KEY=${{ secrets.GEMINI_KEY }}" >> .env
             docker compose pull
-            docker compose up -d --force-recreate
+            docker compose up -d --build
+            docker compose restart grafana
             docker system prune -f
