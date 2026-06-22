@@ -26,9 +26,8 @@
 
     {% for todo in list_todo %}
         <div class="todo-card">
-            <div style="display: flex; justify-content: space-between; align-items: center;">
-                <strong style="font-size: 1.2em;"># {{ todo.title }}</strong>
-
+            <div style="text-align: center; margin-bottom: 15px;">
+                <strong style="font-size: 1.3em;">{{ todo.title }}</strong>
             </div>
 
             {% if todo.advice %}
