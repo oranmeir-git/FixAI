@@ -42,9 +42,15 @@
                 </div>
             {% endif %}
 
-            <div style="margin-top: 15px; border-top: 1px solid #eee; padding-top: 10px;">
-                <a href="/update/{{ todo.id }}" style="text-decoration: none; color: #4a5568; margin-left: 15px;">✅ בוצע </a>
-                <a href="/delete/{{ todo.id }}" style="text-decoration: none; color: #e53e3e;">  🗑️ מחק  </a>
+            <div style="margin-top: 15px; border-top: 1px solid #eee; padding-top: 10px; display: flex; gap: 15px; direction: rtl;">
+                <a href="/update/{{ todo.id }}" style="text-decoration: none; color: #4a5568; display: flex; align-items: center; gap: 5px;">
+                    <span>✅</span>
+                    <span>בוצע</span>
+                </a>
+                <a href="/delete/{{ todo.id }}" style="text-decoration: none; color: #e53e3e; display: flex; align-items: center; gap: 5px;">
+                    <span>🗑️</span>
+                    <span>מחק</span>
+                </a>
             </div>
         </div>
     {% endfor %}
